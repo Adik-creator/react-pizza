@@ -11,35 +11,44 @@ export const HomePage = () => {
     const [items, setItems] = React.useState([])
     const [isLoading, setIsLoading] = React.useState(true)
 
+    const [sort, setSort] = React.useState({
+        title: "популярности (DESC)",
+        sortProperty: "rating",
+    })
+
+    const [categoryId, setCategoryId] = React.useState(0)
+
     React.useEffect(() => {
-        const pizzas = async () => {
+        (async () => {
+            const sortBy = sort.sortProperty.replace("-", "")
+            const order = sort.sortProperty.includes("-") ? "asc" : "desc"
+            const category = categoryId > 0 ? `category=${categoryId}` : ``
+
             try {
-                const response = await axios(`${url}/items`)
+                setIsLoading(true)
+                const response = await axios.get(`${url}/items?sortBy=${sortBy}&order=${order}&${category}`)
                 setItems(response.data)
                 setIsLoading(false)
             } catch (error) {
                 console.log("Error>>>", error)
             }
-        }
-        pizzas()
+        })()
 
-        window.scrollTo(0, 0)  //При первом рендере нас перекинит самый вверх
-    }, [])
+        window.scrollTo(0, 0)
+    }, [sort, categoryId])
 
-    return (
-        <div className="container">
-            <div className="content__top">
-                <Categories/>
-                <Sort/>
-            </div>
-            <h2 className="content__title">Все пиццы</h2>
-            <div className="content__items">
-
-                {
-                    isLoading ? [...new Array(8)].map((_, index) => <Skeleton key={index}/>)
-                        : items.map(pizza => <PizzaBlock pizza={pizza} key={pizza.id}/>)
-                }
-            </div>
+    return (<div className="container">
+        <div className="content__top">
+            <Categories category={categoryId} setCategoryId={setCategoryId}/>
+            <Sort sort={sort} setSort={setSort}/>
         </div>
-    );
+        <h2 className="content__title">Все пиццы</h2>
+        <div className="content__items">
+
+            {
+                isLoading ? [...new Array(8)].map((_, index) =>
+                    <Skeleton key={index}/>) : items.map(pizza => <PizzaBlock pizza={pizza} key={pizza.id}/>)
+            }
+        </div>
+    </div>);
 };

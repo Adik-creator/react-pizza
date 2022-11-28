@@ -1,17 +1,22 @@
-import {useState} from "react";
+import React from "react";
 
-const Sort = () => {
+const Sort = ({sort, setSort}) => {
 
-    const [open, setOpen] = useState(false)
-    const [selected, setSelected] = useState(0)
-    const list = [{title: "популярности", id: 0}, {title: "цене", id: 1}, {title: "алфавиту", id: 2}]
-    const [category, setCategory] = useState("популярности")
+    const [open, setOpen] = React.useState(false)
+    const [selected, setSelected] = React.useState(0)
+    const list = [
+        {title: "популярности (DESC)", sortProperty: "rating", id: 0},
+        {title: "популярности (ASC)", sortProperty: "-rating", id: 1},
+        {title: "цене (DESC)", sortProperty: "price", id: 2},
+        {title: "цене (ASC)", sortProperty: "-price", id: 3},
+        {title: "алфавиту (DESC)", sortProperty: "title", id: 4},
+        {title: "алфавиту (ASC)", sortProperty: "-title", id: 5},
+    ]
 
-
-    const chooseCategory = (id, title) => {
+    const chooseCategory = (obj, id) => {
         setSelected(id)
         setOpen(false)
-        setCategory(title)
+        setSort(obj)
     }
 
     return (
@@ -30,18 +35,18 @@ const Sort = () => {
                     />
                 </svg>
                 <b>Сортировка по:</b>
-                <span onClick={() => setOpen(!open)}>{category}</span>
+                <span onClick={() => setOpen(!open)}>{sort.title}</span>
             </div>
             {open && (
                 <div className="sort__popup">
                     <ul>
-                        {list.map((name) => (
+                        {list.map((obj, index) => (
                             <li
-                                onClick={() => chooseCategory(name.id, name.title)}
-                                className={selected === name.id ? "active" : ""}
-                                key={name.id}
+                                onClick={() => chooseCategory(obj, index)}
+                                className={selected === obj.id ? "active" : ""}
+                                key={obj.id}
                             >
-                                {name.title}
+                                {obj.title}
                             </li>
                         ))}
                     </ul>
