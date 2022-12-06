@@ -1,13 +1,14 @@
 import React from "react";
+import {useDispatch, useSelector} from "react-redux";
+import {changeIndex} from "../redux/slices/filterSlice";
 
 
-const Categories = ({category, setCategoryId}) => {
+const Categories = () => {
 
     const data = ["Все", "Мясные", "Вегетарианская", "Гриль", "Острые", "Закрытые"]
 
-    const changeIndex = (id) => {
-        setCategoryId(id)
-    }
+    const categoryId = useSelector(state => state.filterPizza.categoryId)
+    const dispatch = useDispatch()
 
     return (
         <div className="categories">
@@ -15,8 +16,8 @@ const Categories = ({category, setCategoryId}) => {
                 {data.map((item, index) => (
                     <li
                         key={index}
-                        className={category === index ? "active" : ""}
-                        onClick={() => changeIndex(index)}
+                        className={categoryId === index ? "active" : ""}
+                        onClick={() => dispatch(changeIndex(index))}
                     >
                         {item}
                     </li>

@@ -1,22 +1,28 @@
 import React from "react";
+import {useDispatch, useSelector} from "react-redux";
+import {sortPizza} from "../redux/slices/filterSlice";
 
-const Sort = ({sort, setSort}) => {
+
+export const list = [
+    {title: "популярности (DESC)", sortProperty: "rating", id: 0},
+    {title: "популярности (ASC)", sortProperty: "-rating", id: 1},
+    {title: "цене (DESC)", sortProperty: "price", id: 2},
+    {title: "цене (ASC)", sortProperty: "-price", id: 3},
+    {title: "алфавиту (DESC)", sortProperty: "title", id: 4},
+    {title: "алфавиту (ASC)", sortProperty: "-title", id: 5},
+]
+export const Sort = () => {
 
     const [open, setOpen] = React.useState(false)
     const [selected, setSelected] = React.useState(0)
-    const list = [
-        {title: "популярности (DESC)", sortProperty: "rating", id: 0},
-        {title: "популярности (ASC)", sortProperty: "-rating", id: 1},
-        {title: "цене (DESC)", sortProperty: "price", id: 2},
-        {title: "цене (ASC)", sortProperty: "-price", id: 3},
-        {title: "алфавиту (DESC)", sortProperty: "title", id: 4},
-        {title: "алфавиту (ASC)", sortProperty: "-title", id: 5},
-    ]
+
+    const sort = useSelector(state => state.filterPizza.sort)
+    const dispatch = useDispatch()
 
     const chooseCategory = (obj, id) => {
         setSelected(id)
         setOpen(false)
-        setSort(obj)
+        dispatch(sortPizza(obj))
     }
 
     return (
@@ -55,5 +61,3 @@ const Sort = ({sort, setSort}) => {
         </div>
     )
 }
-
-export {Sort}
