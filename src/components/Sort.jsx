@@ -13,6 +13,8 @@ export const list = [
 ]
 export const Sort = () => {
 
+    const sortRef = React.useRef(false)
+
     const [open, setOpen] = React.useState(false)
     const [selected, setSelected] = React.useState(0)
 
@@ -24,6 +26,20 @@ export const Sort = () => {
         setOpen(false)
         dispatch(sortPizza(obj))
     }
+
+    React.useEffect(() => {
+        const handleClickOutside = (event) => {
+            if (!event.path.include(sortRef.current)){
+                setOpen(false)
+            }
+        }
+
+        document.body.addEventListener('click', handleClickOutside)
+
+        return () => {
+            document.removeEventListener('click', handleClickOutside)
+        }
+    }, [])
 
     return (
         <div className="sort">
