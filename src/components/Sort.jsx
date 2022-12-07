@@ -13,7 +13,7 @@ export const list = [
 ]
 export const Sort = () => {
 
-    const sortRef = React.useRef(false)
+    const sortRef = React.useRef()
 
     const [open, setOpen] = React.useState(false)
     const [selected, setSelected] = React.useState(0)
@@ -29,7 +29,7 @@ export const Sort = () => {
 
     React.useEffect(() => {
         const handleClickOutside = (event) => {
-            if (!event.path.include(sortRef.current)){
+            if (!event.path.includes(sortRef.current)){
                 setOpen(false)
             }
         }
@@ -37,12 +37,12 @@ export const Sort = () => {
         document.body.addEventListener('click', handleClickOutside)
 
         return () => {
-            document.removeEventListener('click', handleClickOutside)
+            document.body.removeEventListener('click', handleClickOutside)
         }
     }, [])
 
     return (
-        <div className="sort">
+        <div className="sort" ref={sortRef}>
             <div className="sort__label">
                 <svg
                     width="10"
