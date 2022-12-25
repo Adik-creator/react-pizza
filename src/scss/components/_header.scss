@@ -10,8 +10,11 @@
     justify-content: space-between;
   }
 
+
   &__logo {
     display: flex;
+    justify-content: center;
+    align-items: center;
 
     img {
       margin-right: 15px;
@@ -20,7 +23,7 @@
     h1 {
       color: #181818;
       font-size: 24px;
-      letter-spacing: 1%;
+      letter-spacing: normal;
       text-transform: uppercase;
       font-weight: 800;
     }
@@ -28,5 +31,9 @@
     p {
       color: #7b7b7b;
     }
+  }
+
+  &__cart{
+    display: flex;
   }
 }

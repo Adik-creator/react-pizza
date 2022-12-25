@@ -9,7 +9,7 @@ const initialState = {
     currentPage: 1,
 }
 
-export const filterSlice = createSlice({
+const filterSlice = createSlice({
     name: 'filter',
     initialState,
     reducers: {
@@ -22,11 +22,14 @@ export const filterSlice = createSlice({
             state.sort = action.payload
         },
 
-        onChangePage(state, action){
+        onChangePage(state, action) {
             state.currentPage = action.payload
         },
         setFilters: (state, action) => {
-            state.sort = action.payload.sort
+
+            if (action.payload.sort){
+                state.sort = action.payload.sort
+            }
             state.categoryId = Number(action.payload.categoryId)
             state.currentPage = Number(action.payload.currentPage)
         }

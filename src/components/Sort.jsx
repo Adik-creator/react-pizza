@@ -27,6 +27,7 @@ export const Sort = () => {
         dispatch(sortPizza(obj))
     }
 
+
     React.useEffect(() => {
         const handleClickOutside = (event) => {
             if (!event.path.includes(sortRef.current)){

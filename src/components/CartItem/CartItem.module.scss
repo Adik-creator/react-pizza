@@ -10,10 +10,6 @@
   border-radius: 10px;
   font-size: 16px;
 
-  @media (max-width: 1200px) {
-    width: 260px;
-  }
-  
   &:focus {
     border: 1px solid rgba(0, 0, 0, 0.2);
   }
