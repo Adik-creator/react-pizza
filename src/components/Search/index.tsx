@@ -4,29 +4,28 @@ import debounce from 'lodash.debounce'
 import styles from './Search.module.scss'
 import {SearchContext} from "../../App";
 
-export const Search = () => {
+
+export const Search: React.FC = () => {
 
     const {searchValue, setSearchValue} = React.useContext(SearchContext)
-    const [value, setValue] = React.useState('')
-
-
-    const inputRef = React.useRef()
+    const [value, setValue] = React.useState<string>('')
+    const inputRef = React.useRef<HTMLInputElement>(null)
 
     const onClickClear = () => {
         setSearchValue('')
         setValue('')
-        inputRef.current.focus()
+        inputRef.current?.focus()
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
     const updateSearchValue = React.useCallback(
-        debounce((str) => {
+        debounce((str: string) => {
             setSearchValue(str)
         }, 400),
         [],
     )
 
-    const onChangeInput = (event) => {
+    const onChangeInput = (event: any) => {
         setValue(event.target.value)
         updateSearchValue(event.target.value)
     }

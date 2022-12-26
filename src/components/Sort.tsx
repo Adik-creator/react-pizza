@@ -3,7 +3,13 @@ import {useDispatch, useSelector} from "react-redux";
 import {sortPizza} from "../redux/slices/filterSlice";
 
 
-export const list = [
+type SortListItem = {
+    title: string;
+    sortProperty: string;
+    id: number;
+}
+
+export const list: SortListItem[] = [
     {title: "популярности (DESC)", sortProperty: "rating", id: 0},
     {title: "популярности (ASC)", sortProperty: "-rating", id: 1},
     {title: "цене (DESC)", sortProperty: "price", id: 2},
@@ -11,17 +17,18 @@ export const list = [
     {title: "алфавиту (DESC)", sortProperty: "title", id: 4},
     {title: "алфавиту (ASC)", sortProperty: "-title", id: 5},
 ]
-export const Sort = () => {
+export const Sort: React.FC = () => {
 
-    const sortRef = React.useRef()
+    const sortRef = React.useRef<HTMLDivElement>(null)
 
     const [open, setOpen] = React.useState(false)
     const [selected, setSelected] = React.useState(0)
 
+    // @ts-ignore
     const sort = useSelector(state => state.filterPizza.sort)
     const dispatch = useDispatch()
 
-    const chooseCategory = (obj, id) => {
+    const chooseCategory = (obj: SortListItem, id: number) => {
         setSelected(id)
         setOpen(false)
         dispatch(sortPizza(obj))
@@ -29,7 +36,7 @@ export const Sort = () => {
 
 
     React.useEffect(() => {
-        const handleClickOutside = (event) => {
+        const handleClickOutside = (event: any) => {
             if (!event.path.includes(sortRef.current)){
                 setOpen(false)
             }

@@ -3,10 +3,11 @@ import {useDispatch, useSelector} from "react-redux";
 import {changeIndex} from "../redux/slices/filterSlice";
 
 
-const Categories = () => {
+const Categories: React.FC = () => {
 
     const data = ["Все", "Мясные", "Вегетарианская", "Гриль", "Острые", "Закрытые"]
 
+    // @ts-ignore
     const categoryId = useSelector(state => state.filterPizza.categoryId)
     const dispatch = useDispatch()
 

@@ -28,15 +28,12 @@ export const HomePage = () => {
     const isSearch = React.useRef(false)
     const isMounted = React.useRef(false)
 
-    console.log(qs, "qs")
-
     //context -------------------------------
     const {searchValue} = React.useContext(SearchContext)
     //--------------------------------------
 
     React.useEffect(() => {
         const params = qs.parse(window.location.search.substring(1))
-        console.log(params)
         if (Object.keys(params).length === 0) return
 
         const sort = list.find(item => item.sortProperty === params.sortProperty)

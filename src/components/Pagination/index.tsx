@@ -6,8 +6,10 @@ import {onChangePage} from "../../redux/slices/filterSlice";
 import styles from './Pagination.module.scss'
 
 
-export const Pagination = () => {
+export const Pagination: React.FC = () => {
 
+
+    // @ts-ignore
     const currentPage = useSelector(state => state.filterPizza.currentPage)
     const dispatch = useDispatch()
 

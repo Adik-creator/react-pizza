@@ -2,7 +2,19 @@ import React from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {addItem} from "../../redux/slices/cartSlice";
 
-export const PizzaBlock = ({pizza}) => {
+
+type PizzaBlockProps = {
+    pizza: {
+        imageUrl: string;
+        title: string;
+        types: number[];
+        sizes: number[];
+        count: number;
+        price: number;
+        id: number;
+    }
+}
+export const PizzaBlock: React.FC<PizzaBlockProps> = ({pizza}) => {
 
 
     const typeNames = ["тонкое", "традиционная"]
@@ -10,6 +22,7 @@ export const PizzaBlock = ({pizza}) => {
     const [activeSize, setActiveSize] = React.useState(0)
 
 
+    // @ts-ignore
     const counter = useSelector(state => state.cart.items.find(item => item.id === pizza.id))
     const dispatch = useDispatch()
 

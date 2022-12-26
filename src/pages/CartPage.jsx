@@ -8,6 +8,7 @@ export const CartPage = () => {
     const {items, totalPrice} = useSelector(state => state.cart)
     const dispatch = useDispatch()
 
+    console.log(items)
     const clearPizza = () => {
         if (window.confirm("Are you sure you wont to clear ?")){
             dispatch(clearItem())

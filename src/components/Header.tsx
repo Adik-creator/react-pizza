@@ -4,13 +4,13 @@ import {Link, useLocation} from "react-router-dom";
 import {Search} from "./Search";
 import {useSelector} from "react-redux";
 
-const Header = () => {
+const Header: React.FC = () => {
+    // @ts-ignore
     const {totalPrice, items} = useSelector(state => state.cart)
-    const amountPizza = items.reduce((total, amount) => total + amount.count, 0)
+    const amountPizza = items.reduce((total: number, amount: any) => total + amount.count, 0)
 
     const location = useLocation()
 
-    console.log(location, "location")
 
     return (
         <div className="header">

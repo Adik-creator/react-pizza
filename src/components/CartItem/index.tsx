@@ -3,7 +3,17 @@ import {addItem, minusItem, removeItem} from "../../redux/slices/cartSlice";
 import {useDispatch} from "react-redux";
 // import styles from './CartItem.module.scss'
 
-export const CartItem = ({pizza}) => {
+type CartItemProps = {
+    pizza: {
+        image: string;
+        title: string;
+        types: number;
+        sizes: number;
+        count: number;
+        price: number;
+    }
+}
+export const CartItem: React.FC<CartItemProps> = ({pizza}) => {
 
     const dispatch = useDispatch()
 

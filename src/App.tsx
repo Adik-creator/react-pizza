@@ -9,10 +9,17 @@ import {CartEmpty} from "./components/CartEmpty/CartEmpty";
 import {FullPizza} from "./components/FullPizza";
 
 
-export const SearchContext = React.createContext({});
+export type GlobalContent = {
+    searchValue: string
+    setSearchValue:(c: string) => void
+}
+export const SearchContext = React.createContext<GlobalContent>({
+    searchValue: 'Hello World',
+    setSearchValue: () => {},
+});
 
-const App = () => {
-    const [searchValue, setSearchValue] = React.useState('')
+const App: React.FC = () => {
+    const [searchValue, setSearchValue] = React.useState<string>('')
 
 
     return (
